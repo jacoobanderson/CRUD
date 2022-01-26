@@ -18,7 +18,9 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.2",
-    "mongoose": "^6.1.8"
+    "helmet": "^5.0.2",
+    "mongoose": "^6.1.8",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "@lnu/eslint-config": "^1.1.4",
