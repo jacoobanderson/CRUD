@@ -8,20 +8,23 @@ export class AccountController {
                 email: req.body.email,
                 password: req.body.password
             })
-            await user.save()
-            req.session.flash = { type: 'success', text: 'Your account was created.' }
+        await user.save()
+            res.json({ success: true })
+            // req.session.flash = { type: 'success', text: 'Your account was created.' }
+            // redirect
         } catch (err) {
-            req.session.flash = { type: 'failed', text: err.message }
+            // req.session.flash = { type: 'failed', text: err.message }
+            console.error(err)
         }
     }
 
     async login (req, res, next) {
         try {
             const user = await User.auth(req.body.username, req.body.password)
-            req.session.username = user.username
-            req.session.flash = { type: 'success', text: 'You are now logged in.' }
+            // req.session.username = user.username
+            // req.session.flash = { type: 'success', text: 'You are now logged in.' }
         } catch (err) {
-            req.session.flash = { type: 'failed', text: err.message }
+            // req.session.flash = { type: 'failed', text: err.message }
         }
     }
 }
