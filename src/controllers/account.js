@@ -9,12 +9,11 @@ export class AccountController {
                 password: req.body.password
             })
         await user.save()
-            res.json({ success: true })
-            // req.session.flash = { type: 'success', text: 'Your account was created.' }
-            // redirect
+            // res.json({ success: true })
+            req.session.flash = { type: 'success', text: 'Your account was created.' }
+            res.redirect('.')
         } catch (err) {
-            // req.session.flash = { type: 'failed', text: err.message }
-            console.error(err)
+            req.session.flash = { type: 'failed', text: err.message }
         }
     }
 
