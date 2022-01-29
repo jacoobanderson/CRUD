@@ -27,4 +27,8 @@ export class AccountController {
             // req.session.flash = { type: 'failed', text: err.message }
         }
     }
+
+    async create (req, res) {
+            res.render('account/register')
+    }
 }
