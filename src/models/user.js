@@ -34,14 +34,13 @@ schema.pre('save', async function () {
  * @param username
  * @param password
  */
-schema.statics.auth = async function (username, password) {
+schema.statics.authenticate = async function (username, password) {
   const user = await this.findOne({ username })
 
-  if (user || (await bcrypt.compare(password, user.password))) {
-    return user
-  } else {
+  if (!user || !(await bcrypt.compare(password, user.password))) {
     throw new Error('Wrong username or password.')
   }
+  return user
 }
 
 export const User = mongoose.model('User', schema)

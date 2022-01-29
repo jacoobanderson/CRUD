@@ -9,25 +9,37 @@ export class AccountController {
                 password: req.body.password
             })
         await user.save()
-            // res.json({ success: true })
             req.session.flash = { type: 'success', text: 'Your account was created.' }
             res.redirect('.')
-        } catch (err) {
-            req.session.flash = { type: 'failed', text: err.message }
+        } catch (error) {
+            req.session.flash = { type: 'failed', text: error.message }
         }
     }
 
     async login (req, res, next) {
         try {
-            const user = await User.auth(req.body.username, req.body.password)
-            // req.session.username = user.username
-            // req.session.flash = { type: 'success', text: 'You are now logged in.' }
-        } catch (err) {
-            // req.session.flash = { type: 'failed', text: err.message }
+            const user = await User.authenticate(req.body.username, req.body.password)
+            req.session.regenerate((err) => {
+                if (err) {
+                    next(err)
+                }
+                req.session.username = user.username
+                req.session.flash = { type: 'success', text: 'You are now logged in.' }
+                console.log(req.session.flash)
+                console.log(user)
+                res.redirect('..')
+            })
+        } catch (error) {
+            req.session.flash = { type: 'failed', text: error.message }
+            res.redirect('./login')
         }
     }
 
-    async create (req, res) {
+    async renderRegister (req, res) {
             res.render('account/register')
+    }
+
+    async renderLogin (req, res) {
+        res.render('account/login')
     }
 }
