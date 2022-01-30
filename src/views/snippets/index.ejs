@@ -12,6 +12,10 @@
             <div class="snippet">
                 <h3><%= snippet.username %> </h3>
                 <%= snippet.message %>
+                <% if (snippet.createdByThisUser === true) { %>
+                  <a href="./<%= snippet.id %>/edit">Edit</a>
+                  <a href="./<%= snippet.id %>/delete">Delete</a>
+                  <% } %>
             </div>
         <% } %>
       <% } else { %>

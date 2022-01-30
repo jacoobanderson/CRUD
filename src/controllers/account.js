@@ -10,7 +10,7 @@ export class AccountController {
             })
         await user.save()
             req.session.flash = { type: 'success', text: 'Your account was created.' }
-            res.redirect('.')
+            res.redirect('..')
         } catch (error) {
             req.session.flash = { type: 'failed', text: error.message }
         }
@@ -41,6 +41,7 @@ export class AccountController {
         res.render('account/login')
     }
 
+    // Better solution to this and logincheck?
     anonymousCheck (req, res, next) {
         if (!req.session.username) {
             next()
@@ -63,8 +64,9 @@ export class AccountController {
         req.session.destroy((error) => {
             if (error) {
                 next(error)
+            } else {
+                res.redirect('..')
             }
-            res.redirect('..')
         })
     }
 }

@@ -16,13 +16,23 @@ export class SnippetController {
         }
     }
 
+  static checkIfCreatedByThisUser(req, snippet) {
+        if (req.session.username === snippet.username) {
+            return true
+        } else {
+            return false
+        }
+    }
+
     async renderIndex (req, res, next) {
         try {
             const viewData = {
                 snippets: (await Snippet.find())
                     .map(snippet => ({
                         username: snippet.username,
-                        message: snippet.message
+                        message: snippet.message,
+                        createdByThisUser: SnippetController.checkIfCreatedByThisUser(req, snippet),
+                        id: snippet._id
                     }))
             }
             res.render('snippets/index', { viewData })
