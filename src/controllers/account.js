@@ -40,4 +40,31 @@ export class AccountController {
     async renderLogin (req, res) {
         res.render('account/login')
     }
+
+    anonymousCheck (req, res, next) {
+        if (!req.session.username) {
+            next()
+        } else {
+            // create error?
+            res.redirect('..')
+        }
+    }
+
+    loggedInCheck (req, res, next) {
+        if(req.session.username) {
+            next()
+        } else {
+            // create error?
+            res.redirect('..')
+        }
+    }
+
+    async logout (req, res, next) {
+        req.session.destroy((error) => {
+            if (error) {
+                next(error)
+            }
+            res.redirect('..')
+        })
+    }
 }

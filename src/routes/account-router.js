@@ -7,8 +7,10 @@ const controller = new AccountController()
 
 router.get('/register', controller.renderRegister)
 
-router.get('/login', controller.renderLogin)
+router.get('/login', controller.anonymousCheck, controller.renderLogin)
 
 router.post('/register', controller.register)
 
 router.post('/login', controller.login)
+
+router.get('/logout', controller.loggedInCheck, controller.logout)
