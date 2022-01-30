@@ -25,8 +25,6 @@ export class AccountController {
                 }
                 req.session.username = user.username
                 req.session.flash = { type: 'success', text: 'You are now logged in.' }
-                console.log(req.session.flash)
-                console.log(user)
                 res.redirect('..')
             })
         } catch (error) {

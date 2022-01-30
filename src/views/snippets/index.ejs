@@ -1,0 +1,23 @@
+<h1>Snippets</h1>
+<form class="form" method="post" action="./create">
+  <div class="snippetpostcontainer">
+    <textarea name="message" placeholder="Share your message here" required="required"
+    autofocus="autofocus"></textarea>
+  </div>
+  <div class="submitcontainer">
+    <button type="submit" class="submitbutton">Post a snippet</button>
+  </div>
+</form>
+
+<div class="snippetscontainer">
+    <% if (viewData.snippets.length) { %>
+        <% for (const snippet of viewData.snippets) { %>
+            <div class="snippet">
+                <h3><%= snippet.username %> </h3>
+                <%= snippet.message %>
+            </div>
+        <% } %>
+      <% } else { %>
+            There are no posted snippets
+      <% } %>
+</div>

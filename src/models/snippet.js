@@ -7,7 +7,8 @@ const schema = new mongoose.Schema({
   },
   message: {
     type: String,
-    required: true
+    required: true,
+    minlength: [1, 'The message cannot contain less than one character']
   }
 }, {
   timestamps: true

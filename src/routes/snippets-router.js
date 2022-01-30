@@ -1,10 +1,13 @@
 import express from 'express'
+import { SnippetController } from '../controllers/snippet-controller.js'
 
 export const router = express.Router()
 
-router.get('/')
+const controller = new SnippetController()
 
-router.post('/create')
+router.get('/', controller.renderIndex)
+
+router.post('/create', controller.createSnippet)
 
 router.get('/:id/edit')
 router.post('/:id/edit')
