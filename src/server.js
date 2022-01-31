@@ -74,6 +74,10 @@ try {
       return res
         .status(404)
         .sendFile(join(directoryFullName, 'views', 'errors', '404.html'))
+    } else if (err.status === 403) {
+        return res
+        .status(404)
+        .sendFile(join(directoryFullName, 'views', 'errors', '404.html'))
     }
 
     // 500 Internal Server Error (in production, all other errors send this response).
