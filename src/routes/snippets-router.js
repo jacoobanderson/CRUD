@@ -12,5 +12,5 @@ router.post('/create', controller.createSnippet)
 router.get('/:id/edit')
 router.post('/:id/edit')
 
-router.get('/:id/delete')
-router.post('/:id/delete')
+router.get('/:id/delete', controller.renderDelete)
+router.post('/:id/delete', controller.delete)

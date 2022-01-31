@@ -12,7 +12,7 @@ export class AccountController {
             req.session.flash = { type: 'success', text: 'Your account was created.' }
             res.redirect('..')
         } catch (error) {
-            req.session.flash = { type: 'failed', text: error.message }
+            req.session.flash = { type: 'danger', text: error.message }
         }
     }
 
@@ -28,7 +28,7 @@ export class AccountController {
                 res.redirect('..')
             })
         } catch (error) {
-            req.session.flash = { type: 'failed', text: error.message }
+            req.session.flash = { type: 'danger', text: error.message }
             res.redirect('./login')
         }
     }

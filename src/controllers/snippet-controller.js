@@ -11,7 +11,7 @@ export class SnippetController {
             req.session.flash = { type: 'success', text: 'The snippet was created successfully.' }
             res.redirect('.')
         } catch (error) {
-            req.session.flash = { type: 'failed', text: error.message }
+            req.session.flash = { type: 'danger', text: error.message }
             res.redirect('.')
         }
     }
@@ -21,6 +21,31 @@ export class SnippetController {
             return true
         } else {
             return false
+        }
+    }
+
+    async renderDelete (req, res, next) {
+        try {
+            const snippet = await Snippet.findById(req.params.id)
+
+            const viewData = {
+                id: snippet._id
+            }
+
+            res.render('snippets/deleteSnippet', { viewData })
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async delete (req, res) {
+        try {
+            await Snippet.findByIdAndDelete(req.body.id)
+            req.session.flash = { type: 'success', text: 'The snippet has successfully been deleted' }
+            res.redirect('..')
+        } catch (error) {
+            req.session.flash = { type: 'danger', text: error.message }
+            res.redirect('./delete')
         }
     }
 
