@@ -91,4 +91,21 @@ export class SnippetController {
             next(error)
         }
     }
+
+
+    async auth (req, res, next) {
+        const snippet = await Snippet.findOne({ _id: req.params.id })
+        if (!req.session.username) {
+            const error = new Error('Not found')
+            error.statusCode = '404'
+            console.log('test1')
+            next(error)
+        } else if (req.params.id && (snippet.username !== req.session.username)) {
+            const error = new Error('Forbidden')
+            error.statusCode = 403
+            console.log('test2')
+            next(error)
+        }
+        next()
+    }
 }

@@ -13,6 +13,7 @@ export class AccountController {
             res.redirect('..')
         } catch (error) {
             req.session.flash = { type: 'danger', text: error.message }
+            res.redirect('./register')
         }
     }
 
@@ -47,6 +48,9 @@ export class AccountController {
             next()
         } else {
             // create error?
+            // const error = new Error('?')
+            // error.statusCode = 404
+            // next(error)
             res.redirect('..')
         }
     }
