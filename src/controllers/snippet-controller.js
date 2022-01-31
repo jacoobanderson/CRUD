@@ -49,6 +49,32 @@ export class SnippetController {
         }
     }
 
+    async renderEdit (req, res, next) {
+        try {
+            const snippet = await Snippet.findById(req.params.id)
+            const viewData = {
+                id: snippet._id,
+                message: snippet.message
+            }
+            res.render('snippets/editSnippet', { viewData })
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async edit (req, res) {
+        try {
+            const snippet = await Snippet.findById(req.params.id)
+            snippet.message = req.body.message
+            await snippet.save()
+            req.session.flash = { type: 'success', text: 'The snippet was edited successfully.' }
+            res.redirect('..')
+        } catch (error) {
+            req.session.flash = { type: 'danger', text: error.message }
+            res.redirect('.')
+        }
+    }
+
     async renderIndex (req, res, next) {
         try {
             const viewData = {

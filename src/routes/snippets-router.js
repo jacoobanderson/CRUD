@@ -9,8 +9,8 @@ router.get('/', controller.renderIndex)
 
 router.post('/create', controller.createSnippet)
 
-router.get('/:id/edit')
-router.post('/:id/edit')
+router.get('/:id/edit', controller.renderEdit)
+router.post('/:id/edit', controller.edit)
 
 router.get('/:id/delete', controller.renderDelete)
 router.post('/:id/delete', controller.delete)
