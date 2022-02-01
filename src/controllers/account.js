@@ -42,16 +42,13 @@ export class AccountController {
         res.render('account/login')
     }
 
-    // Better solution to this and logincheck?
     anonymousCheck (req, res, next) {
         if (!req.session.username) {
             next()
         } else {
-            // create error?
-            // const error = new Error('?')
-            // error.statusCode = 404
-            // next(error)
-            res.redirect('..')
+             const error = new Error('Not Found')
+             error.status = 404
+             next(error)
         }
     }
 
@@ -59,8 +56,9 @@ export class AccountController {
         if(req.session.username) {
             next()
         } else {
-            // create error?
-            res.redirect('..')
+          const error = new Error('Not Found')
+          error.status = 404
+          next(error)
         }
     }
 

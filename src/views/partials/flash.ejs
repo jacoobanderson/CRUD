@@ -1,5 +1,10 @@
 <% if (typeof flash !== 'undefined') { %>
-    <div>
+  <% if (flash.type === 'success') { %>
+    <div class="flash">
   <%= flash.text %>
 </div>
-<% } %>
+<% } else { %>
+  <div class="flashfailed">
+    <%= flash.text %>
+  </div>
+  <% } } %>

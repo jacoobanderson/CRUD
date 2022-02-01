@@ -6,6 +6,30 @@ html, body {
     background-color: rgb(56, 57, 58);
 }
 
+.flash {
+    height: 50px;
+    width: 400px;
+    background-color: green;
+    color: white;
+    text-align: center;
+    line-height: 50px;
+    grid-column: 2/4;
+    justify-self: center;
+    margin-top: 10px;
+}
+
+.flashfailed {
+    height: 50px;
+    width: 400px;
+    background-color: red;
+    color: white;
+    text-align: center;
+    line-height: 50px;
+    grid-column: 2/4;
+    justify-self: center;
+    margin-top: 10px;
+}
+
 .container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;

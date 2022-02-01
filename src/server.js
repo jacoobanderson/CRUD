@@ -50,7 +50,7 @@ try {
   // Middleware to be executed before the routes.
   app.use((req, res, next) => {
     if (req.session.username) {
-        res.locals.username = req.session.username
+      res.locals.username = req.session.username
     }
     // Flash messages - survives only a round trip.
     if (req.session.flash) {
@@ -75,7 +75,7 @@ try {
         .status(404)
         .sendFile(join(directoryFullName, 'views', 'errors', '404.html'))
     } else if (err.status === 403) {
-        return res
+      return res
         .status(404)
         .sendFile(join(directoryFullName, 'views', 'errors', '404.html'))
     }
