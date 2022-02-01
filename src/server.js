@@ -47,29 +47,25 @@ try {
 
   app.use(session(sessionOptions))
 
-  // Middleware to be executed before the routes.
+  // Middleware
   app.use((req, res, next) => {
     if (req.session.username) {
       res.locals.username = req.session.username
     }
-    // Flash messages - survives only a round trip.
+
     if (req.session.flash) {
       res.locals.flash = req.session.flash
       delete req.session.flash
     }
 
-    // Pass the base URL to the views.
     res.locals.baseURL = baseURL
 
     next()
   })
 
-  // Register routes.
   app.use('/', router)
 
-  // Error handler.
   app.use(function (err, req, res, next) {
-    // 404 Not Found.
     if (err.status === 404) {
       return res
         .status(404)
@@ -80,17 +76,14 @@ try {
         .sendFile(join(directoryFullName, 'views', 'errors', '404.html'))
     }
 
-    // 500 Internal Server Error (in production, all other errors send this response).
+    // 500 Internal Server Error, all other send this response in production.
     if (req.app.get('env') !== 'development') {
       return res
         .status(500)
         .sendFile(join(directoryFullName, 'views', 'errors', '500.html'))
     }
 
-    // Development only!
-    // Only providing detailed error in development.
-
-    // Render the error page.
+    // Development
     res
       .status(err.status || 500)
       .render('errors/error', { error: err })

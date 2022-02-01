@@ -5,8 +5,10 @@ import { Snippet } from '../models/snippet.js'
  */
 export class SnippetController {
   /**
-   * @param req
-   * @param res
+   * Creates a snippet.
+   *
+   * @param {object} req - Express req object.
+   * @param {object} res - Express res object.
    */
   async createSnippet (req, res) {
     try {
@@ -24,8 +26,11 @@ export class SnippetController {
   }
 
   /**
-   * @param req
-   * @param snippet
+   * Checks if the current user is the owner.
+   *
+   * @param {object} req - Express req object.
+   * @param {object} snippet - Snippet object.
+   * @returns {boolean} - True if it is the owner and false if not.
    */
   static checkIfCreatedByThisUser (req, snippet) {
     if (req.session.username === snippet.username) {
@@ -36,9 +41,11 @@ export class SnippetController {
   }
 
   /**
-   * @param req
-   * @param res
-   * @param next
+   * Renders the delete page.
+   *
+   * @param {object} req - Express req object.
+   * @param {object} res - Express res object.
+   * @param {Function} next - Express next middleware function.
    */
   async renderDelete (req, res, next) {
     try {
@@ -55,8 +62,10 @@ export class SnippetController {
   }
 
   /**
-   * @param req
-   * @param res
+   * Deletes a snippet.
+   *
+   * @param {object} req - Express req object.
+   * @param {object} res - Express res object.
    */
   async delete (req, res) {
     try {
@@ -70,9 +79,11 @@ export class SnippetController {
   }
 
   /**
-   * @param req
-   * @param res
-   * @param next
+   * Renders the edit page.
+   *
+   * @param {object} req - Express req object.
+   * @param {object} res - Express res object.
+   * @param {Function} next - Express next middleware function.
    */
   async renderEdit (req, res, next) {
     try {
@@ -88,8 +99,10 @@ export class SnippetController {
   }
 
   /**
-   * @param req
-   * @param res
+   * Edits a snippet.
+   *
+   * @param {object} req - Express req object.
+   * @param {object} res - Express res object.
    */
   async edit (req, res) {
     try {
@@ -105,9 +118,11 @@ export class SnippetController {
   }
 
   /**
-   * @param req
-   * @param res
-   * @param next
+   * Renders index, all snippets.
+   *
+   * @param {object} req - Express req object.
+   * @param {object} res - Express res object.
+   * @param {Function} next - Express next middleware function.
    */
   async renderIndex (req, res, next) {
     try {
@@ -127,9 +142,12 @@ export class SnippetController {
   }
 
   /**
-   * @param req
-   * @param res
-   * @param next
+   * Authorizes.
+   *
+   * @param {object} req - Express req object.
+   * @param {object} res - Express res object.
+   * @param {Function} next - Express next middleware function.
+   * @returns {Function} Express next middleware function.
    */
   async auth (req, res, next) {
     const snippet = await Snippet.findOne({ _id: req.params.id })

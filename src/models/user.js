@@ -30,8 +30,11 @@ schema.pre('save', async function () {
 })
 
 /**
- * @param username
- * @param password
+ * Authenticates a user.
+ *
+ * @param {string} username - A string of the username.
+ * @param {string} password - A string of the password.
+ * @returns {Promise} Returns a promise that resolves into an object of a user.
  */
 schema.statics.authenticate = async function (username, password) {
   const user = await this.findOne({ username })
