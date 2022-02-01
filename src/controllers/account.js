@@ -39,10 +39,11 @@ export class AccountController {
       req.session.regenerate((err) => {
         if (err) {
           next(err)
+        } else {
+          req.session.username = user.username
+          req.session.flash = { type: 'success', text: 'You are now logged in.' }
+          res.redirect('..')
         }
-        req.session.username = user.username
-        req.session.flash = { type: 'success', text: 'You are now logged in.' }
-        res.redirect('..')
       })
     } catch (error) {
       req.session.flash = { type: 'danger', text: error.message }
@@ -78,13 +79,9 @@ export class AccountController {
    * @param {Function} next - Express next middleware function.
    */
   anonymousCheck (req, res, next) {
-    if (!req.session.username) {
-      next()
-    } else {
-      const error = new Error('Not Found')
-      error.status = 404
-      next(error)
-    }
+    const error = new Error('Not Found')
+    error.status = 404
+    !req.session.username ? next() : next(error)
   }
 
   /**
@@ -95,13 +92,9 @@ export class AccountController {
    * @param {Function} next - Express next middleware function.
    */
   loggedInCheck (req, res, next) {
-    if (req.session.username) {
-      next()
-    } else {
-      const error = new Error('Not Found')
-      error.status = 404
-      next(error)
-    }
+    const error = new Error('Not Found')
+    error.status = 404
+    req.session.username ? next() : next(error)
   }
 
   /**
@@ -113,11 +106,7 @@ export class AccountController {
    */
   async logout (req, res, next) {
     req.session.destroy((error) => {
-      if (error) {
-        next(error)
-      } else {
-        res.redirect('..')
-      }
+      error ? next(error) : res.redirect('..')
     })
   }
 }

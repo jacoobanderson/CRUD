@@ -33,11 +33,7 @@ export class SnippetController {
    * @returns {boolean} - True if it is the owner and false if not.
    */
   static checkIfCreatedByThisUser (req, snippet) {
-    if (req.session.username === snippet.username) {
-      return true
-    } else {
-      return false
-    }
+    return req.session.username === snippet.username
   }
 
   /**
@@ -133,7 +129,8 @@ export class SnippetController {
             message: snippet.message,
             createdByThisUser: SnippetController.checkIfCreatedByThisUser(req, snippet),
             id: snippet._id
-          }))
+          })),
+        currentUser: req.session.username
       }
       res.render('snippets/index', { viewData })
     } catch (error) {

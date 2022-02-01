@@ -1,3 +1,4 @@
+<% if (viewData.currentUser !== undefined) { %>
 <form class="form" method="post" action="./create">
   <div class="snippetpostcontainer">
     <textarea name="message" placeholder="Share your message here" required="required"
@@ -5,6 +6,7 @@
     <button type="submit" class="submitbutton">Post a snippet</button>
   </div>
 </form>
+<% } %>
 
 <div class="snippetscontainer">
     <% if (viewData.snippets.length) { %>
