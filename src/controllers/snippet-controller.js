@@ -1,7 +1,7 @@
 import { Snippet } from '../models/snippet.js'
 
 /**
- *
+ * The snippet controller.
  */
 export class SnippetController {
   /**
@@ -151,10 +151,12 @@ export class SnippetController {
    */
   async auth (req, res, next) {
     const snippet = await Snippet.findOne({ _id: req.params.id })
+    // If the user is anonymous, throw 404.
     if (!req.session.username) {
       const error = new Error('Not found')
       error.status = 404
       return next(error)
+    // If another user tries to access someone elses snnippet throw 403.
     } else if (req.params.id && (snippet.username !== req.session.username)) {
       const error = new Error('Forbidden')
       error.status = 403

@@ -20,6 +20,7 @@ try {
   app.use(helmet())
   app.use(logger('dev'))
 
+  // View engine set up.
   app.set('view engine', 'ejs')
   app.set('views', join(directoryFullName, 'views'))
   app.use(expressLayouts)
@@ -29,6 +30,7 @@ try {
 
   app.use(express.static(join(directoryFullName, '..', 'public')))
 
+  // Session set up.
   const sessionOptions = {
     name: process.env.SESSION_NAME,
     secret: process.env.SESSION_SECRET,
@@ -66,14 +68,16 @@ try {
   app.use('/', router)
 
   app.use(function (err, req, res, next) {
+    // Sends a Not found page.
     if (err.status === 404) {
       return res
         .status(404)
         .sendFile(join(directoryFullName, 'views', 'errors', '404.html'))
     } else if (err.status === 403) {
+      // Sends a forbidden page.
       return res
-        .status(404)
-        .sendFile(join(directoryFullName, 'views', 'errors', '404.html'))
+        .status(403)
+        .sendFile(join(directoryFullName, 'views', 'errors', '403.html'))
     }
 
     // 500 Internal Server Error, all other send this response in production.

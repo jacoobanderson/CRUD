@@ -1,7 +1,7 @@
 import { User } from '../models/user.js'
 
 /**
- *
+ * The account controller
  */
 export class AccountController {
   /**
