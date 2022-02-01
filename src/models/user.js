@@ -29,7 +29,6 @@ schema.pre('save', async function () {
   this.password = await bcrypt.hash(this.password, 8)
 })
 
-// Auth user
 /**
  * @param username
  * @param password

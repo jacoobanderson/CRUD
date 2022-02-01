@@ -30,12 +30,12 @@ try {
   app.use(express.static(join(directoryFullName, '..', 'public')))
 
   const sessionOptions = {
-    name: process.env.SESSION_NAME, // Don't use default session cookie name.
-    secret: process.env.SESSION_SECRET, // Change it!!! The secret is used to hash the session with HMAC.
-    resave: false, // Resave even if a request is not changing the session.
-    saveUninitialized: false, // Don't save a created but not modified session.
+    name: process.env.SESSION_NAME,
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
     cookie: {
-      maxAge: 1000 * 60 * 60 * 24, // 1 day
+      maxAge: 1000 * 60 * 60 * 24,
       sameSite: 'strict'
     }
   }

@@ -67,6 +67,22 @@ html, body {
     padding: 7px;
 }
 
+.snippetcenter {
+    grid-column: 2/4;
+    justify-self: center;
+    align-self: center;
+}
+
+.snippetcenter textarea {
+    outline: 0;
+    resize: none;
+    background-color:rgb(70, 70, 70);
+    border-radius: 8px;
+    width: 400px;
+    height: 150px;
+    padding: 7px;
+}
+
 .footer {
     display: block;
     text-align: center;
@@ -116,4 +132,12 @@ html, body {
 .forminput {
     display: block;
     margin: 10px;
+}
+
+.edit {
+    color: rgb(154, 217, 250)
+}
+
+.delete {
+    color: red;
 }
